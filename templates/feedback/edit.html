@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Feedback{% endblock %}
+
+{% block content %}
+<h1 class="text-center">Edit Feedback</h1>
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form action="/feedback/{{feedback.id}}/update" method='POST'>
+            {{form.hidden_tag()}}
+
+            {% for field in form if field.widget.input_type != 'hidden' %}
+            <div class="form-group">
+                {{field.label}}
+                {{field(class_="form-control")}}
+
+                {% for err in field.errors %}
+                <p class="form-text text-danger">{{err}}</p>
+                {% endfor %}
+            </div>
+            {% endfor %}
+            
+            <div class="text-right">                
+                <a href="/users/{{feedback.username}}" class="btn btn-outline-info">Back</a>
+                <button class="btn btn-success text-center">Submit</button>                                
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
